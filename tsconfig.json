@@ -5,13 +5,17 @@
         "module": "commonjs",
         "lib": [
             "esnext",
-            "dom"
+            "dom",
+            "es6"
         ],
         "allowJs": false,
         "noEmit": true,
         "strict": true,
         "esModuleInterop": false,
         "allowSyntheticDefaultImports": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false,
         "outDir": ".dist"
     },
     "include": [
