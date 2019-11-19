@@ -1,12 +1,14 @@
 import 'reflect-metadata'
 import { createConnection } from 'typeorm'
 import { User } from './entity/User'
+const uuid = require('uuid')
 
 let createUser = (nickname: string, email: string, password: string): void => {
     createConnection()
         .then(async connection => {
             console.log('Inserting a new user into the database...')
             const user: User = new User()
+            user.uuid = uuid.v4()
             user.nickname = nickname
             user.email = email
             user.password = password

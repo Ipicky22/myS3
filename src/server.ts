@@ -5,12 +5,13 @@ const app: Application = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.get('/', async function (req: Request, res: Response) {
+app.get('/', async (req: Request, res: Response) => {
     res.send('Hello')
 })
 
-app.post('/addUser', async function (req: Request, res: Response) {
+app.post('/addUser', async (req: Request, res: Response) => {
     const { nickname, email, password } = req.body
+
     createUser(nickname, email, password)
     res.sendStatus(200).end()
 })
