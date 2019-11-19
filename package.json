@@ -14,7 +14,7 @@
     "test:unit": "jest --config=.jestrc.js --maxWorkers 2",
     "test": "test:static && test:unit",
     "lint": "eslint src/*.ts* src/**/*.ts*",
-    "dev": "nodemon src/app.ts",
+    "dev": "nodemon src/server.ts",
     "build": "babel src/ --out-dir .dist/ --extensions \".ts\" --source-maps inline --quiet --copy-files",
     "clean": "rimraf .dist"
   },

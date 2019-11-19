@@ -18,3 +18,4 @@ describe(':: devNull', (): void => {
         expect(42).equal(42)
     })
 })
+
