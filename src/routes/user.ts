@@ -15,15 +15,12 @@ app.post('/addUser', async (req: Request, res: Response) => {
     user.email = email
     user.password = password
 
-    const hello = getManager()
-
-    // await getManager.
-    await hello.getRepository(User).save(user)
+    await getManager().getRepository(User).save(user)
 
     console.log('Saved a new user with id: ' + user.uuid)
     console.log('Loading users from the database...')
 
-    const users = await hello.find(User)
+    const users = await getManager().find(User)
 
     console.log('Loaded users: ', users)
     res.sendStatus(200).end()
