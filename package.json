@@ -10,25 +10,28 @@
   },
   "main": ".dist/main.js",
   "scripts": {
-    "test:static": "yarn tsc",
-    "test:unit": "yarn jest --config=.jestrc.js --maxWorkers 2",
-    "test": "yarn test:static && yarn test:unit",
-    "lint": "yarn eslint src/*.ts* src/**/*.ts*",
-    "dev": "yarn nodemon",
-    "build": "yarn babel src/ --out-dir .dist/ --extensions \".ts\" --source-maps inline --quiet --copy-files",
-    "clean": "yarn rimraf .dist"
+    "test:static": "tsc",
+    "test:unit": "jest --config=.jestrc.js --maxWorkers 2",
+    "test": "test:static && test:unit",
+    "lint": "eslint src/*.ts* src/**/*.ts*",
+    "dev": "nodemon src/app.ts",
+    "build": "babel src/ --out-dir .dist/ --extensions \".ts\" --source-maps inline --quiet --copy-files",
+    "clean": "rimraf .dist"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn prettier --write \"src/*.ts\" \"src/**/*.ts*\"",
-      "pre-push": "yarn lint && yarn test"
+      "pre-commit": "prettier --write \"src/*.ts\" \"src/**/*.ts*\"",
+      "pre-push": "lint && test"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.7.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
+    "@babel/plugin-proposal-decorators": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-typescript": "^7.7.2",
     "@mhirba/eslint-config-base": "^1.4.2",
