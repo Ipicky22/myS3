@@ -39,11 +39,16 @@ app.get('/findOne/:uuid', async (req: Request, res: Response) => {
 
 app.patch('/updateOne/:uuid', async (req: Request, res: Response) => {
     const uuid: string = req.params.uuid
-    const user: any = await getRepository(User).findOne(uuid)
+    const user: User | undefined = await getRepository(User).findOne(uuid)
     console.log("user", user)
-    getRepository(User).merge(user, req.body)
-    await getRepository(User).save(user)
-    res.send(`User n° ${uuid} has been updated.`).end()
+    if (user) {
+        getRepository(User).merge(user, req.body)
+        await getRepository(User).save(user)
+        res.send(`User n° ${uuid} has been updated.`).end()
+    } else {
+        res.send(`User n° ${uuid} was not found.`).end()
+    }
+    
 })
 
 app.delete('/deleteOne/:uuid', async (req: Request, res: Response) => {
