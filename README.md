@@ -6,3 +6,5 @@
       "pre-push": "lint && test"
     }
   },
+
+  Maxime Gouénard - Adrien Masson

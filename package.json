@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/Ipicky22/myS3.git"
   },
-  "main": ".dist/main.js",
+  "main": ".dist/server.js",
   "scripts": {
     "test:static": "tsc",
     "test:unit": "jest --config=.jestrc.js --maxWorkers 2",
@@ -18,13 +18,22 @@
     "build": "babel src/ --out-dir .dist/ --extensions \".ts\" --source-maps inline --quiet --copy-files",
     "clean": "rimraf .dist"
   },
-  "dependencies": {},
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "marked": "^0.7.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
     "@babel/plugin-proposal-class-properties": "^7.7.0",
-    "@babel/plugin-proposal-decorators": "^7.7.0",
+    "@babel/plugin-proposal-decorators": "^7.7.4",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-typescript": "^7.7.2",
     "@mhirba/eslint-config-base": "^1.4.2",

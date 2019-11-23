@@ -1,22 +1,24 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm'
+import { Entity, PrimaryColumn, Column } from 'typeorm';
 
 @Entity()
 export class User {
+
     @PrimaryColumn('uuid')
-    uuid: string
+    uuid: string;
 
     @Column('varchar', {
         length: 100,
     })
-    nickname: string
+    nickname: string;
 
     @Column('varchar', {
         length: 100,
     })
-    email: string
+    email: string;
 
     @Column('varchar', {
         length: 100,
     })
-    password: string
+    password: string;
+
 }

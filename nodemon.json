@@ -1,5 +1,5 @@
 {
-    "watch": ["src"],
+    "watch": ["myS3"],
     "ext": "ts",
-    "exec": "babel-node --extensions \".ts\" src/main"
+    "exec": "babel-node --extensions \".ts\" src/server"
 }

@@ -1,15 +1,18 @@
 import { Router, Request, Response } from 'express';
-import user from './user'
+import passport from 'passport';
+import auth from './auth';
+import secured from './secured/user';
 
 const app = Router();
 
 app.get('/', (req: Request, res: Response) => {
-    res.json({
-        'project Name': 'myS3',
+    res.status(200).json({
+        'Project Name': 'myS3',
         author: ['Adrien Masson', 'Maxime Gouénard'],
     });
 });
 
-app.use("/user", user);
+app.use("/auth", auth);
+app.use("/", passport.authenticate("jwt", {session: false}), secured);
 
 export default app;
