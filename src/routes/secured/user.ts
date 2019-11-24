@@ -6,7 +6,7 @@ const uuid = require('uuid');
 const app = Router();
 
 // GET user by uuid
-app.get('/user/:uuid', async (req: Request, res: Response) => {
+app.get('/users/:uuid', async (req: Request, res: Response) => {
     const uuid: string = req.params.uuid;
     const user: User | undefined = await getRepository(User).findOne(uuid);
     if(user) {
@@ -17,7 +17,7 @@ app.get('/user/:uuid', async (req: Request, res: Response) => {
 });
 
 // PATCH update user
-app.patch('/user/:uuid', async (req: Request, res: Response) => {
+app.patch('/users/:uuid', async (req: Request, res: Response) => {
     const uuid: string = req.params.uuid;
     const updateUser: User | undefined = req.body;
     const user: User | undefined = await getRepository(User).findOne(uuid);
@@ -31,7 +31,7 @@ app.patch('/user/:uuid', async (req: Request, res: Response) => {
 });
 
 // DELETE user by uuid
-app.delete('/user/:uuid', async (req: Request, res: Response) => {
+app.delete('/users/:uuid', async (req: Request, res: Response) => {
     const uuid: string = req.params.uuid;
     const user: User | undefined = await getRepository(User).findOne(uuid);
     if(user) {

@@ -31,6 +31,7 @@ app.post("/register", async (request, response) => {
 
 app.post("/login", async (request, response, next) => {
   passport.authenticate("local", {session: false }, async (error, user) => {
+    console.log(user)
       if(error) {
         response.status(400).json({
           error: {message: error}
