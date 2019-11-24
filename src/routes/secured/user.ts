@@ -18,28 +18,44 @@ app.get('/users/:uuid', async (req: Request, res: Response) => {
 
 // PATCH update user
 app.patch('/users/:uuid', async (req: Request, res: Response) => {
-    const uuid: string = req.params.uuid;
-    const updateUser: User | undefined = req.body;
-    const user: User | undefined = await getRepository(User).findOne(uuid);
-    if (user) {
-        getRepository(User).merge(user, updateUser);
-        await getRepository(User).save(user);
-        res.send(`User n° ${uuid} has been updated.`).end();
+
+  jwt.verify(req.body.token,process.env.SUPERSECRET, async (err,decoded) => {
+    if (err) {
+      res.status(400).json({ error: 'Token error : ' + err.message });
     } else {
-        res.send(`User n° ${uuid} was not found.`).end();
+      const uuid: string = req.params.uuid;
+      const updateUser: User | undefined = req.body;
+      const user: User | undefined = await getRepository(User).findOne(uuid);
+      if (user) {
+          getRepository(User).merge(user, updateUser);
+          await getRepository(User).save(user);
+          res.send(`User n° ${uuid} has been updated.`).end();
+      } else {
+          res.send(`User n° ${uuid} was not found.`).end();
+      }
     }
+  });
+
 });
 
 // DELETE user by uuid
 app.delete('/users/:uuid', async (req: Request, res: Response) => {
-    const uuid: string = req.params.uuid;
-    const user: User | undefined = await getRepository(User).findOne(uuid);
-    if(user) {
-      await getRepository(User).delete(uuid);
-      res.send(`User n° ${uuid} has been deleted.`).end();
+
+  jwt.verify(req.body.token,process.env.SUPERSECRET, async (err,decoded) => {
+    if (err) {
+      res.status(400).json({ error: 'Token error : ' + err.message });
     } else {
-      res.send(`User n° ${uuid} was not found.`).end();
+      const uuid: string = req.params.uuid;
+      const user: User | undefined = await getRepository(User).findOne(uuid);
+      if(user) {
+        await getRepository(User).delete(uuid);
+        res.send(`User n° ${uuid} has been deleted.`).end();
+      } else {
+        res.send(`User n° ${uuid} was not found.`).end();
+      }
     }
+  });
+
 });
 
 // GET All users

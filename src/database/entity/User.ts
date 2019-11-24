@@ -1,4 +1,5 @@
 import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { hashSync, compareSync } from "bcryptjs";
 
 @Entity()
 export class User {
@@ -20,5 +21,13 @@ export class User {
         length: 100,
     })
     password: string;
+
+    hashPassword() {
+      this.password = hashSync(this.password, 8);
+    }
+
+    checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
+      return compareSync(unencryptedPassword, this.password);
+    }
 
 }

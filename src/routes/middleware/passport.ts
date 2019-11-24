@@ -33,7 +33,7 @@ passport.use(
     async (jwtPayload, next) => {
       try {
         console.log(jwtPayload)
-         const user = await getRepository(User).findOne({ where: {uuid: jwtPayload.id} });
+         const user = await getRepository(User).findOne({ where: {id: jwtPayload.id} });
 
          if (!user){
            return next("User doesn't exist");
