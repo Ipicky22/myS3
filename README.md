@@ -74,6 +74,6 @@ module.exports = {
 | **DELETE**   | `/api/users/:uuid`             |                                                                   | token |
 | **DELETE**   | `/api/users/`                  |                                                                   | token |
 
-
+---
 - **Mail Register**
 https://nodemailer.com/about/
