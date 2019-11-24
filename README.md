@@ -68,8 +68,12 @@ module.exports = {
 
 | method       | endpoint                       | body                                                              |  auth |
 |--------------|--------------------------------|-------------------------------------------------------------------|-------|
-| **GET**      | `/api/users/`                  | body : { token}                                                   | token |
-| **GET**      | `/api/users/:uuid`             | body : { token }                                                  | token |
-| **PATCH**    | `/api/users/:uuid`             | body : { nickname, email, token }                                 | token |
-| **DELETE**   | `/api/users/:uuid`             | body : { token }                                                  | token |
-| **DELETE**   | `/api/users/`                  | body : { token }                                                  | token |
+| **GET**      | `/api/users/`                  |                                                                   | token |
+| **GET**      | `/api/users/:uuid`             |                                                                   | token |
+| **PATCH**    | `/api/users/:uuid`             | body : { nickname, email }                                        | token |
+| **DELETE**   | `/api/users/:uuid`             |                                                                   | token |
+| **DELETE**   | `/api/users/`                  |                                                                   | token |
+
+
+- **Mail Register**
+https://nodemailer.com/about/
