@@ -9,8 +9,8 @@ require ('dotenv').config();
 passport.use(
   new LocalStrategy(
     {
-      emailField: "email",
-      password: "password"
+      usernameField: "email",
+      passwordField: "password"
     },
     async (email, password, next) => {
       const user = await getRepository(User).findOne({ where: {email} });

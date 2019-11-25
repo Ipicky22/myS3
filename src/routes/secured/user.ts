@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { getManager, getRepository, repository } from 'typeorm';
 import { User } from "../../database/entity/User";
+import jwt from "jsonwebtoken";
 
 const uuid = require('uuid');
 const app = Router();
@@ -42,6 +43,7 @@ app.patch('/users/:uuid', async (req: Request, res: Response) => {
 app.delete('/users/:uuid', async (req: Request, res: Response) => {
 
   jwt.verify(req.body.token,process.env.SUPERSECRET, async (err,decoded) => {
+    console.log(req.body)
     if (err) {
       res.status(400).json({ error: 'Token error : ' + err.message });
     } else {
