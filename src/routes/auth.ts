@@ -27,27 +27,27 @@ app.post("/register", async (request, response) => {
 
     response.status(201).json({ data: { user }, meta: { token } });
 
-    const testAccount = await nodemailer.createTestAccount();
+    const userGmail = process.env.GMAIL_USER;
+    const passwordGmail = process.env.GMAIL_PASSWORD;
+
     const transporter = nodemailer.createTransport({
+      service: 'gmail',
       host: "smtp.ethereal.email",
       port: 587,
       secure: false,
       auth: {
-        user: testAccount.user,
-        pass: testAccount.pass
+        user: userGmail,
+        pass: passwordGmail
       }
     });
 
     const info = await transporter.sendMail({
-      from: email,
-      to: "mys3@efreiparis.fr",
+      from: userGmail,
+      to: email,
       subject: "Welcome to myS3",
       text: "Hello world",
       html: "<b>Hello world</b>"
     });
-
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
   }catch (error) {
     response.status(400).json({ error: error.message });
