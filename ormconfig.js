@@ -6,10 +6,10 @@ module.exports = {
       "username": process.env.MYSQL_USER,
       "password": process.env.MYSQL_PASSWORD,
       "database": process.env.MYSQL_DATABASE,
-      "synchronize": true,
-      "logging": false,
+      "synchronize": false,
+      "logging": true,
       "entities": [
-         "src/entity/**/*.ts"
+         "src/database/entity/**/*.ts"
       ],
       "migrations": [
          "src/migration/**/*.ts"
@@ -18,9 +18,9 @@ module.exports = {
          "src/subscriber/**/*.ts"
       ],
       "cli": {
-         "entitiesDir": "src/entity",
+         "entitiesDir": "src/database/entity",
          "migrationsDir": "src/migration",
          "subscribersDir": "src/subscriber"
       }
-   
+
 }
