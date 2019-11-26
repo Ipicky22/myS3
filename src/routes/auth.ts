@@ -1,6 +1,7 @@
-import { Router, Request, Response  } from "express";
+import { Router, Request, Response } from "express";
 import { getRepository } from 'typeorm';
 import { User } from "../database/entity/User";
+import { hashSync } from 'bcryptjs'
 import jwt from "jsonwebtoken";
 import passport from "passport";
 import nodemailer from "nodemailer";
@@ -8,7 +9,6 @@ import Mail from "nodemailer/lib/mailer";
 
 const uuid = require('uuid');
 const app = Router();
-const secret = process.env.SUPERSECRET as string;
 
 app.post("/register", async (request: Request, response: Response) => {
     const { nickname, email, password } = request.body;
@@ -23,12 +23,12 @@ app.post("/register", async (request: Request, response: Response) => {
         await getRepository(User).save(user);
         const payload = { id: user.uuid, nickname, email };
 
-        const token: String = jwt.sign(payload, secret);
+        const token: String = jwt.sign(payload, process.env.SUPERSECRET);
 
         response.status(201).json({ data: { user }, meta: { token } });
 
-        const testAccount : nodemailer.TestAccount = await nodemailer.createTestAccount();
-        const transporter : Mail = nodemailer.createTransport({
+        const testAccount: nodemailer.TestAccount = await nodemailer.createTestAccount();
+        const transporter: Mail = nodemailer.createTransport({
             host: "smtp.ethereal.email",
             port: 587,
             secure: false,
@@ -55,22 +55,19 @@ app.post("/register", async (request: Request, response: Response) => {
 });
 
 app.post("/login", async (request: Request, response: Response, next) => {
-    passport.authenticate("local", { session: false }, async (error, user) => {
+    passport.authenticate("local", { session: false }, async (error: Error, user: any) => {
         if (error) {
             response.status(400).json({
                 error: { message: error }
             });
             return response.status(400);
         }
-        const { nickname, email } = user;
-
+        const { nickname, email, password } = user;
         if (!user.checkIfUnencryptedPasswordIsValid(request.body.password)) {
             return response.status(400).send('password wrong');
         }
-
         const payload = { nickname, email };
-        const token : String = jwt.sign(payload, secret);
-
+        const token = jwt.sign(payload, process.env.SUPERSECRET);
         response.status(200).json({ data: { user }, meta: { token } });
 
     })(request, response, next);
