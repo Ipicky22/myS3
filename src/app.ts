@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import passport from 'passport';
 import marked from 'marked';
@@ -11,11 +11,11 @@ app.use(passport.initialize());
 app.use(bodyParser.urlencoded( {extended: true} ));
 app.use(bodyParser.json());
 
-app.get("/", (request, response) => {
-  const file = fs.readFileSync('./README.md', 'utf8');
+app.get("/", (request: Request, response: Response) => {
+  const file: String = fs.readFileSync('./README.md', 'utf8');
   response.send(marked(file.toString()));
 })
 
 app.use("/api", api);
 
-module.exports = app;
+export default app

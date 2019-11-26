@@ -23,11 +23,11 @@ export class User {
     password: string;
 
     hashPassword() {
-      this.password = hashSync(this.password, 8);
+        this.password = hashSync(this.password, 8);
     }
 
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
-      return compareSync(unencryptedPassword, this.password);
+        return compareSync(unencryptedPassword, this.password);
     }
 
 }
