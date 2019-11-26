@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import passport from 'passport';
 import auth from './auth';
-import secured from './secured/user';
+import secured from './secured/';
 
 const app = Router();
 

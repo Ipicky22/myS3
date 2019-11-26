@@ -7,7 +7,7 @@ const uuid = require('uuid');
 const app = Router();
 
 // GET user by uuid
-app.get('/users/:uuid', async (req: Request, res: Response) => {
+app.get('/:uuid', async (req: Request, res: Response) => {
     const uuid: string = req.params.uuid;
     const user: User | undefined = await getRepository(User).findOne(uuid);
     if(user) {
@@ -18,7 +18,7 @@ app.get('/users/:uuid', async (req: Request, res: Response) => {
 });
 
 // PATCH update user
-app.patch('/users/:uuid', async (req: Request, res: Response) => {
+app.patch('/:uuid', async (req: Request, res: Response) => {
 
   jwt.verify(req.body.token,process.env.SUPERSECRET, async (err,decoded) => {
     if (err) {
@@ -40,7 +40,7 @@ app.patch('/users/:uuid', async (req: Request, res: Response) => {
 });
 
 // DELETE user by uuid
-app.delete('/users/:uuid', async (req: Request, res: Response) => {
+app.delete('/:uuid', async (req: Request, res: Response) => {
 
   jwt.verify(req.body.token,process.env.SUPERSECRET, async (err,decoded) => {
     console.log(req.body)
@@ -61,13 +61,13 @@ app.delete('/users/:uuid', async (req: Request, res: Response) => {
 });
 
 // GET All users
-app.get('/users', async (req: Request, res: Response) => {
+app.get('/', async (req: Request, res: Response) => {
     const users: User[] | undefined = await getRepository(User).find();
     res.send(users).end();
 });
 
 // DELETE all users
-app.delete('/users', async (req: Request, res: Response) => {
+app.delete('/', async (req: Request, res: Response) => {
     await getRepository(User).clear();
     res.send(`Users has been deleted.`).end();
 });

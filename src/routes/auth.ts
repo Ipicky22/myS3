@@ -63,7 +63,10 @@ app.post("/login", async (request, response, next) => {
         return response.status(400);
       }
       const { nickname, email, password } = user;
-      console.log(user)
+
+      if (!user.checkIfUnencryptedPasswordIsValid(request.body.password)) {
+        return response.status(400).send('password wrong');
+      }
 
       const payload = { nickname, email };
       const token = jwt.sign(payload, process.env.SUPERSECRET);
