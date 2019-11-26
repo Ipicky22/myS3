@@ -95,7 +95,7 @@ app.patch('/password/:uuid', async (req: Request, res: Response) => {
       }
 
       if (oldpassword === newpassword) {
-        return res.send(`password are the same`)
+        return res.send(`password are the same`);
       }
 
       console.log("oldpassword : " + oldpassword);
@@ -104,8 +104,6 @@ app.patch('/password/:uuid', async (req: Request, res: Response) => {
       const uuid: string = req.params.uuid;
       const user: User | undefined = await getRepository(User).findOne(uuid);
 
-      console.log(user);
-
       if (!user.checkIfUnencryptedPasswordIsValid(oldpassword)) {
         // 401 Unauthorized
         res.status(401).send('password wrong');
@@ -113,10 +111,8 @@ app.patch('/password/:uuid', async (req: Request, res: Response) => {
       }
 
       if (user) {
-          console.log("Before update" + user)
           user.password = newpassword;
           user.hashPassword();
-          console.log("After update" + user)
           await getRepository(User).save(user);
           res.send(`User n° ${uuid} password has been updated.`).end();
       } else {
