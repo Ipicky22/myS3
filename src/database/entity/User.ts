@@ -27,6 +27,8 @@ export class User {
     }
 
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
+      console.log("unencrypted : " + unencryptedPassword)
+      console.log("this.password : " + this.password)
       return compareSync(unencryptedPassword, this.password);
     }
 

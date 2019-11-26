@@ -32,9 +32,6 @@ app.post("/register", async (request, response) => {
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false,
       auth: {
         user: userGmail,
         pass: passwordGmail
