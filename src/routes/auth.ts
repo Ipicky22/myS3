@@ -7,6 +7,7 @@ import passport from "passport";
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
 
+var fs = require('fs');
 const uuid = require('uuid');
 const app = Router();
 
@@ -23,7 +24,7 @@ app.post("/register", async (request: Request, response: Response) => {
         await getRepository(User).save(user);
         const payload = { id: user.uuid, nickname, email };
 
-        const token: String = jwt.sign(payload, process.env.SUPERSECRET);
+        const token: String = jwt.sign(payload, process.env.SUPERSECRET as string);
 
         response.status(201).json({ data: { user }, meta: { token } });
 
@@ -49,6 +50,14 @@ app.post("/register", async (request: Request, response: Response) => {
         console.log("Message sent: %s", info.messageId);
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
+        const dir = process.env.STORAGE + "/" + user.uuid
+
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+        } else {
+            console.log("The folder " + dir + " could not be created.");
+        }
+
     } catch (error) {
         response.status(400).json({ error: error.message });
     }
@@ -67,7 +76,7 @@ app.post("/login", async (request: Request, response: Response, next) => {
             return response.status(400).send('password wrong');
         }
         const payload = { nickname, email };
-        const token = jwt.sign(payload, process.env.SUPERSECRET);
+        const token = jwt.sign(payload, process.env.SUPERSECRET as string);
         response.status(200).json({ data: { user }, meta: { token } });
 
     })(request, response, next);
