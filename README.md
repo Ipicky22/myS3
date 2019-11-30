@@ -83,4 +83,4 @@ https://nodemailer.com/about/
 
 | method       | endpoint                           | body                                                              |  auth |
 |--------------|------------------------------------|-------------------------------------------------------------------|-------|
-| **POST**      | `/api/users/resetpassword/:uuid`  |                                                                   | token |
+| **POST**     | `/api/users/resetpassword/:uuid`   |                                                                   | token |

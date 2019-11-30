@@ -52,9 +52,9 @@ app.post('/resetpassword/:uuid', async(req: Request, res: Response) => {
       const uuid: string = req.params.uuid;
       const user: User | undefined = await getRepository(User).findOne(uuid);
 
-      const to = user.email;
-      const subject = 'Reset password myS3';
-      const message = "<b> Click on this link to change your password : <a href='https://www.google.com'> here <a/>";
+      const to: string = user.email;
+      const subject: string = 'Reset password myS3';
+      const message: string = "<b> Click on this link to change your password : <a href='https://www.google.com'> here <a/>";
 
       const mail = new Mail(to, subject, message);
       mail.sendMail();

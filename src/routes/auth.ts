@@ -25,11 +25,10 @@ app.post("/register", async (request, response) => {
     await getRepository(User).save(user);
     const payload = { id: user.uuid, nickname, email };
     const token = jwt.sign(payload, process.env.SUPERSECRET);
-    console.log('authen')
 
-    const to = user.email;
-    const subject = 'Welcome to myS3';
-    const message = "Congratulations! You've successfully created a myS3 account";
+    const to: string = user.email;
+    const subject: string = 'Welcome to myS3';
+    const message: string = "Congratulations! You've successfully created a myS3 account";
 
     const mail = new Mail(to, subject, message);
     mail.sendMail();
