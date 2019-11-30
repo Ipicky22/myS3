@@ -80,3 +80,7 @@ module.exports = {
 ---
 - **Mail Register**
 https://nodemailer.com/about/
+
+| method       | endpoint                           | body                                                              |  auth |
+|--------------|------------------------------------|-------------------------------------------------------------------|-------|
+| **POST**      | `/api/users/resetpassword/:uuid`  |                                                                   | token |
