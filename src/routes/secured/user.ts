@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { getManager, getRepository, repository } from 'typeorm';
 import { User } from "../../database/entity/User";
+import Mail from "../../services/mail";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 
@@ -40,8 +41,8 @@ app.patch('/:uuid', async (req: Request, res: Response) => {
 
 });
 
-//
-app.post('/sendMailPassword/:uuid', async(req: Request, res: Response) => {
+// Send Email to change password
+app.post('/resetpassword/:uuid', async(req: Request, res: Response) => {
 
   jwt.verify(req.body.token,process.env.SUPERSECRET, async (err,decoded) => {
     if (err) {
@@ -51,29 +52,14 @@ app.post('/sendMailPassword/:uuid', async(req: Request, res: Response) => {
       const uuid: string = req.params.uuid;
       const user: User | undefined = await getRepository(User).findOne(uuid);
 
-      console.log(user)
+      const to = user.email;
+      const subject = 'Reset password myS3';
+      const message = "<b> Click on this link to change your password : <a href='https://www.google.com'> here <a/>";
 
-      const userGmail = process.env.GMAIL_USER;
-      const passwordGmail = process.env.GMAIL_PASSWORD;
-
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: userGmail,
-          pass: passwordGmail
-        }
-      });
-
-      const info = await transporter.sendMail({
-        from: userGmail,
-        to: user.email,
-        subject: "Reset password myS3",
-        text: "Click on this link to change your password",
-        html: "<b> Click on this link to change your password : <a href='https://www.google.com'> here <a/>"
-      });
-
+      const mail = new Mail(to, subject, message);
+      mail.sendMail();
       // Query successfully processes. The actual response will depend on the request method used.
-      res.status(200).json('Mail envoyé').end();
+      res.status(200).json('Mail sent').end();
     }
   });
 
@@ -97,9 +83,6 @@ app.patch('/password/:uuid', async (req: Request, res: Response) => {
       if (oldpassword === newpassword) {
         return res.send(`password are the same`);
       }
-
-      console.log("oldpassword : " + oldpassword);
-      console.log("newpassword : " + newpassword);
 
       const uuid: string = req.params.uuid;
       const user: User | undefined = await getRepository(User).findOne(uuid);
@@ -127,7 +110,6 @@ app.patch('/password/:uuid', async (req: Request, res: Response) => {
 app.delete('/:uuid', async (req: Request, res: Response) => {
 
   jwt.verify(req.body.token,process.env.SUPERSECRET, async (err,decoded) => {
-    console.log(req.body)
     if (err) {
       res.status(400).json({ error: 'Token error : ' + err.message });
     } else {

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { getManager, getRepository } from 'typeorm';
 import { User } from "../database/entity/User";
+import Mail from "../services/mail";
 import { hashSync } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import passport from "passport";
@@ -24,27 +25,16 @@ app.post("/register", async (request, response) => {
     await getRepository(User).save(user);
     const payload = { id: user.uuid, nickname, email };
     const token = jwt.sign(payload, process.env.SUPERSECRET);
+    console.log('authen')
+
+    const to = user.email;
+    const subject = 'Welcome to myS3';
+    const message = "Congratulations! You've successfully created a myS3 account";
+
+    const mail = new Mail(to, subject, message);
+    mail.sendMail();
 
     response.status(201).json({ data: { user }, meta: { token } });
-
-    const userGmail = process.env.GMAIL_USER;
-    const passwordGmail = process.env.GMAIL_PASSWORD;
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: userGmail,
-        pass: passwordGmail
-      }
-    });
-
-    const info = await transporter.sendMail({
-      from: userGmail,
-      to: email,
-      subject: "Welcome to myS3",
-      text: "Hello world",
-      html: "<b>Hello world</b>"
-    });
 
   }catch (error) {
     response.status(400).json({ error: error.message });
