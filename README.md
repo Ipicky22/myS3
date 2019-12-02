@@ -9,7 +9,7 @@ Maxime Gouénard - Adrien Masson
 - Create **.env** file for :
 ```conf
   SERVER_PORT=YOUR_SERVER_PORT
-x
+
   MYSQL_TYPE=mysql
   MYSQL_HOST=localhost
   MYSQL_PORT=YOUR_MYSQL_PORT

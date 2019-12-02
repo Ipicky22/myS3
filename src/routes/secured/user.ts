@@ -8,6 +8,7 @@ import nodemailer from "nodemailer";
 const uuid = require('uuid');
 const app = Router();
 
+
 // GET user by uuid
 app.get('/:uuid', async (req: Request, res: Response) => {
     const uuid: string = req.params.uuid;
@@ -21,8 +22,8 @@ app.get('/:uuid', async (req: Request, res: Response) => {
 
 // PATCH update user
 app.patch('/:uuid', async (req: Request, res: Response) => {
-
-  jwt.verify(req.body.token,process.env.SUPERSECRET, async (err,decoded) => {
+  const token = req.headers.authorization.slice(6).trimLeft();
+  jwt.verify(token, process.env.SUPERSECRET, async (err,decoded) => {
     if (err) {
       res.status(400).json({ error: 'Token error : ' + err.message });
     } else {
@@ -43,8 +44,8 @@ app.patch('/:uuid', async (req: Request, res: Response) => {
 
 // Send Email to change password
 app.post('/resetpassword/:uuid', async(req: Request, res: Response) => {
-
-  jwt.verify(req.body.token,process.env.SUPERSECRET, async (err,decoded) => {
+ const token = req.headers.authorization.slice(6).trimLeft()
+  jwt.verify(token, process.env.SUPERSECRET, async (err,decoded) => {
     if (err) {
       res.status(400).json({ error: 'Token error : ' + err.message });
     }  else {
@@ -67,8 +68,8 @@ app.post('/resetpassword/:uuid', async(req: Request, res: Response) => {
 
 // PATCH password user
 app.patch('/password/:uuid', async (req: Request, res: Response) => {
-
-  jwt.verify(req.body.token, process.env.SUPERSECRET, async (err, decoded) => {
+  const token = req.headers.authorization.slice(6).trimLeft()
+  jwt.verify(token, process.env.SUPERSECRET, async (err, decoded) => {
     if(err) {
       res.status(400).json({ error: 'Token error : ' + err.message });
     }
@@ -108,8 +109,8 @@ app.patch('/password/:uuid', async (req: Request, res: Response) => {
 
 // DELETE user by uuid
 app.delete('/:uuid', async (req: Request, res: Response) => {
-
-  jwt.verify(req.body.token,process.env.SUPERSECRET, async (err,decoded) => {
+  const token = req.headers.authorization.slice(6).trimLeft()
+  jwt.verify(token, process.env.SUPERSECRET, async (err,decoded) => {
     if (err) {
       res.status(400).json({ error: 'Token error : ' + err.message });
     } else {
