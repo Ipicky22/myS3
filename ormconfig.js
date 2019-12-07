@@ -9,7 +9,7 @@ module.exports = {
       "synchronize": false,
       "logging": true,
       "entities": [
-         "src/database/entity/**/*.ts"
+         "src/database/entity/**/*.ts",
       ],
       "migrations": [
          "src/migration/**/*.ts"

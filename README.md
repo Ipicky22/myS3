@@ -78,6 +78,20 @@ module.exports = {
 | **DELETE**   | `/api/users/`                  |                                                                   | token |
 
 ---
+
+- **BUCKET ENDPOINT**
+
+| method       | endpoint                       | body                                                              |  auth |
+|--------------|------------------------------- |-------------------------------------------------------------------|-------|
+| **POST**     | `/api/buckets/create`          | body : { name, uuiUser }                                          | token |
+| **GET**      | `/api/buckets/`                |                                                                   | token |
+| **GET**      | `/api/buckets/:uuid`           |                                                                   | token |
+| **PATCH**    | `/api/buckets/:uuid`           | body : { name }                                                   | token |
+| **DELETE**   | `/api/buckets/:uuid`           |                                                                   | token |
+| **DELETE**   | `/api/buckets/`                |                                                                   | token |
+
+---
+
 - **Mail Register**
 https://nodemailer.com/about/
 
