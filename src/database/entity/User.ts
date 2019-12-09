@@ -1,5 +1,6 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
 import { hashSync, compareSync } from "bcryptjs";
+import { Bucket } from './Bucket'
 
 @Entity()
 export class User {
@@ -21,6 +22,9 @@ export class User {
         length: 100,
     })
     password: string;
+
+    @OneToMany(type => Bucket, bucket => bucket.user)
+    bucket: Bucket[];
 
     hashPassword() {
       this.password = hashSync(this.password, 8);

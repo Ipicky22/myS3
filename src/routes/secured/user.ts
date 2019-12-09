@@ -6,16 +6,19 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 
 const app = Router();
+const secret = process.env.SUPERSECRET as string;
 
 // GET user by uuid
 app.get('/:uuid', async (req: Request, res: Response) => {
-  const uuid: string = req.params.uuid;
-  const user: User | undefined = await getRepository(User).findOne(uuid);
-  if (user) {
-    res.send(user).end();
-  } else {
-    res.send(`User n° ${uuid} was not found.`).end();
-  }
+
+    const uuid: string = req.params.uuid;
+    const user: User | undefined = await getRepository(User).findOne(uuid);
+    if (user) {
+        res.send(user).end();
+    } else {
+        res.send(`User n° ${uuid} was not found.`).end();
+    }
+
 });
 
 // PATCH update user

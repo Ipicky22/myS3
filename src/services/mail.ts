@@ -18,7 +18,6 @@ export default class Mail {
         to: this.to,
         subject: this.subject,
         html: this.message
-
     }
 
     const transporter = nodemailer.createTransport({

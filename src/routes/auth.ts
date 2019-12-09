@@ -6,6 +6,7 @@ import { hashSync } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import passport from "passport";
 import nodemailer from "nodemailer";
+import fs from "fs";
 
 const uuid = require('uuid');
 const app = Router();
@@ -32,6 +33,13 @@ app.post("/register", async (request, response) => {
 
     const mail : Mail = new Mail(to, subject, message);
     mail.sendMail();
+
+    const dir = process.env.STORAGE + "/" + user.uuid
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    } else {
+        console.log("The folder " + dir + " could not be created.");
+    }
 
     response.status(201).json({ data: { user }, meta: { token } });
 
