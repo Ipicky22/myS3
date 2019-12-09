@@ -123,11 +123,10 @@ module.exports = {
 
 | method         | endpoint                       | body                                                              |  auth |
 |----------------|------------------------------- |-------------------------------------------------------------------|-------|
-| **POST**       | `/api/users/:uuid/buckets/     | body : { name }                                                   | token |
+| **POST**       | `/api/users/:uuid/buckets/`    | body : { name }                                                   | token |
 | **GET**        | `/api/users/:uuid/buckets/:id` |                                                                   | token |
 | **PATCH**      | `/api/users/:uuid/buckets/:id` | body : { name }                                                   | token |
 | **DELETE**     | `/api/users/:uuid/buckets/:id` |                                                                   | token |
-
 | **GET ALL**    | `/api/buckets`                 |                                                                   | token |
 | **DELETE ALL** | `/api/buckets`                 |                                                                   | token |
 
