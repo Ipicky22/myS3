@@ -8,24 +8,23 @@ import nodemailer from "nodemailer";
 const app = Router();
 const secret = process.env.SUPERSECRET as string;
 
-// GET user by uuid
+// **************** GET user by uuid *************** //
 app.get('/:uuid', async (req: Request, res: Response) => {
 
     const uuid: string = req.params.uuid;
     const user: User | undefined = await getRepository(User).findOne(uuid);
     if (user) {
-        res.send(user).end();
+        res.status(200).send(user).end();
     } else {
-        res.send(`User n° ${uuid} was not found.`).end();
+        res.status(400).send(`User n° ${uuid} was not found.`).end();
     }
 
 });
 
-// PATCH update user
+// **************** EDIT user by uuid **************** //
 app.patch('/:uuid', async (req: Request, res: Response) => {
   if (req.headers.authorization) {
     const token = req.headers.authorization.slice(6).trimLeft();
-
 
     jwt.verify(token, process.env.SUPERSECRET as string, async (err, decoded) => {
       if (err) {
@@ -37,9 +36,9 @@ app.patch('/:uuid', async (req: Request, res: Response) => {
         if (user) {
           getRepository(User).merge(user, updateUser as User);
           await getRepository(User).save(user);
-          res.send(`User n° ${uuid} has been updated.`).end();
+          res.status(200).send(`User n° ${uuid} has been updated.`).end();
         } else {
-          res.send(`User n° ${uuid} was not found.`).end();
+          res.status(400).send(`User n° ${uuid} was not found.`).end();
         }
       }
     });
@@ -48,8 +47,74 @@ app.patch('/:uuid', async (req: Request, res: Response) => {
   }
 });
 
-// Send Email to change password
-app.post('/resetpassword/:uuid', async (req: Request, res: Response) => {
+// **************** DELETE user by uuid **************** //
+app.delete('/:uuid', async (req: Request, res: Response) => {
+  if (req.headers.authorization) {
+    const token = req.headers.authorization.slice(6).trimLeft()
+    jwt.verify(token, process.env.SUPERSECRET as string, async (err, decoded) => {
+      if (err) {
+        res.status(400).json({ error: 'Token error : ' + err.message });
+      } else {
+        const uuid: string = req.params.uuid;
+        const user: User | undefined = await getRepository(User).findOne(uuid);
+        if (user) {
+          await getRepository(User).delete(uuid);
+          res.status(200).send(`User n° ${uuid} has been deleted.`).end();
+        } else {
+          res.status(400).send(`User n° ${uuid} was not found.`).end();
+        }
+      }
+    });
+  } else {
+    console.log("req.headers.authorization was not found.")
+  }
+});
+
+// **************** EDIT password user by uuid **************** //
+app.patch('/password/:uuid', async (req: Request, res: Response) => {
+  if (req.headers.authorization) {
+    const token = req.headers.authorization.slice(6).trimLeft()
+    jwt.verify(token, process.env.SUPERSECRET as string, async (err, decoded) => {
+      if (err) {
+        res.status(400).json({ error: 'Token error : ' + err.message });
+      }
+      else {
+        const { oldpassword, newpassword } = req.body;
+
+        if (!(oldpassword && newpassword)) {
+          res.status(400).send();
+        }
+
+        if (oldpassword === newpassword) {
+          return res.send(`password are the same`);
+        }
+
+        const uuid: string = req.params.uuid;
+        const user: User | undefined = await getRepository(User).findOne(uuid);
+
+        if (user && !user.checkIfUnencryptedPasswordIsValid(oldpassword)) {
+          // 401 Unauthorized
+          res.status(400).send('password wrong');
+          return;
+        }
+
+        if (user) {
+          user.password = newpassword;
+          user.hashPassword();
+          await getRepository(User).save(user);
+          res.status(200).send(`User n° ${uuid} password has been updated.`).end();
+        } else {
+          res.status(400).send(`User n° ${uuid} was not found.`).end();
+        }
+      }
+    });
+  } else {
+    console.log("req.headers.authorization was not found.")
+  }
+});
+
+// **************** SEND mail user by uuid **************** //
+app.post('/mailpassword/:uuid', async (req: Request, res: Response) => {
   if (req.headers.authorization) {
     const token = req.headers.authorization.slice(6).trimLeft()
     jwt.verify(token, process.env.SUPERSECRET as string, async (err, decoded) => {
@@ -70,8 +135,6 @@ app.post('/resetpassword/:uuid', async (req: Request, res: Response) => {
         } else {
           console.log("Not find user")
         }
-
-        // Query successfully processes. The actual response will depend on the request method used.
         res.status(200).json('Mail sent').end();
       }
     });
@@ -80,72 +143,7 @@ app.post('/resetpassword/:uuid', async (req: Request, res: Response) => {
   }
 });
 
-// PATCH password user
-app.patch('/password/:uuid', async (req: Request, res: Response) => {
-  if (req.headers.authorization) {
-    const token = req.headers.authorization.slice(6).trimLeft()
-    jwt.verify(token, process.env.SUPERSECRET as string, async (err, decoded) => {
-      if (err) {
-        res.status(400).json({ error: 'Token error : ' + err.message });
-      }
-      else {
-        const { oldpassword, newpassword } = req.body;
-
-        if (!(oldpassword && newpassword)) {
-          //400 Bad Request
-          res.status(400).send();
-        }
-
-        if (oldpassword === newpassword) {
-          return res.send(`password are the same`);
-        }
-
-        const uuid: string = req.params.uuid;
-        const user: User | undefined = await getRepository(User).findOne(uuid);
-
-        if (user && !user.checkIfUnencryptedPasswordIsValid(oldpassword)) {
-          // 401 Unauthorized
-          res.status(401).send('password wrong');
-          return;
-        }
-
-        if (user) {
-          user.password = newpassword;
-          user.hashPassword();
-          await getRepository(User).save(user);
-          res.send(`User n° ${uuid} password has been updated.`).end();
-        } else {
-          res.send(`User n° ${uuid} was not found.`).end();
-        }
-      }
-    });
-  } else {
-    console.log("req.headers.authorization was not found.")
-  }
-});
-
-// DELETE user by uuid
-app.delete('/:uuid', async (req: Request, res: Response) => {
-  if (req.headers.authorization) {
-    const token = req.headers.authorization.slice(6).trimLeft()
-    jwt.verify(token, process.env.SUPERSECRET as string, async (err, decoded) => {
-      if (err) {
-        res.status(400).json({ error: 'Token error : ' + err.message });
-      } else {
-        const uuid: string = req.params.uuid;
-        const user: User | undefined = await getRepository(User).findOne(uuid);
-        if (user) {
-          await getRepository(User).delete(uuid);
-          res.send(`User n° ${uuid} has been deleted.`).end();
-        } else {
-          res.send(`User n° ${uuid} was not found.`).end();
-        }
-      }
-    });
-  } else {
-    console.log("req.headers.authorization was not found.")
-  }
-});
+// **************** NOT ASKED **************** //
 
 // GET all users
 app.get('/', async (req: Request, res: Response) => {

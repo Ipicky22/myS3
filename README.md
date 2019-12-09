@@ -114,8 +114,6 @@ module.exports = {
 | **GET**        | `/api/users/:uuid`             |                                                                   | token |
 | **PATCH**      | `/api/users/:uuid`             | body : { nickname, email }                                        | token |
 | **DELETE**     | `/api/users/:uuid`             |                                                                   | token |
-| **GET ALL**    | `/api/users/`                  |                                                                   | token |
-| **DELETE ALL** | `/api/users/`                  |                                                                   | token |
 
 ---
 
@@ -127,8 +125,6 @@ module.exports = {
 | **GET**        | `/api/users/:uuid/buckets/:id` |                                                                   | token |
 | **PATCH**      | `/api/users/:uuid/buckets/:id` | body : { name }                                                   | token |
 | **DELETE**     | `/api/users/:uuid/buckets/:id` |                                                                   | token |
-| **GET ALL**    | `/api/buckets/`                |                                                                   | token |
-| **DELETE ALL** | `/api/buckets/`                |                                                                   | token |
 
 ---
 
@@ -137,4 +133,4 @@ https://nodemailer.com/about/
 
 | method       | endpoint                           | body                                                              |  auth |
 |--------------|------------------------------------|-------------------------------------------------------------------|-------|
-| **POST**     | `/api/users/resetpassword/:uuid`   |                                                                   | token |
+| **POST**     | `/api/users/mailpassword/:uuid`    |                                                                   | token |
