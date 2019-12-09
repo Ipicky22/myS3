@@ -6,7 +6,7 @@ module.exports = {
       "username": process.env.MYSQL_USER,
       "password": process.env.MYSQL_PASSWORD,
       "database": process.env.MYSQL_DATABASE,
-      "synchronize": false,
+      "synchronize": true,
       "logging": true,
       "entities": [
          "src/database/entity/**/*.ts",

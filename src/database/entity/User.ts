@@ -1,5 +1,6 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
 import { hashSync, compareSync } from "bcryptjs";
+import { Bucket } from './Bucket'
 
 @Entity()
 export class User {
@@ -22,23 +23,15 @@ export class User {
     })
     password: string;
 
-<<<<<<< HEAD
-    private hashPassword() {
+    @OneToMany(type => Bucket, bucket => bucket.user)
+    bucket: Bucket[];
+
+    hashPassword() {
       this.password = hashSync(this.password, 8);
     }
 
-    private checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
-      return compareSync(unencryptedPassword, this.password);
-=======
-    hashPassword() {
-        this.password = hashSync(this.password, 8);
-    }
-
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
-        console.log("pass",this.password)
-        console.log("unencryptedPassword",unencryptedPassword)
-        return compareSync(unencryptedPassword, this.password);
->>>>>>> 50e3d7bd036653139f45c7d6cbacf7fff9fec64f
+      return compareSync(unencryptedPassword, this.password);
     }
 
 }

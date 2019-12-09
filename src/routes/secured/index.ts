@@ -1,27 +1,13 @@
 import { Router } from "express";
+import passport from 'passport';
 import user from "./user";
-import bucket from './bucket'
-import blob from './blob'
+import blob from "./blob";
+import bucket from "./bucket";
 
 const api = Router();
 
 api.use("/users", user);
-api.use("/buckets", bucket);
-api.use("/blobs", blob);
+api.use("/users/:uuid/buckets", passport.authenticate("jwt", { session : false }), bucket);
+api.use("/users/:uuid/buckets/:id/blobs",passport.authenticate("jwt", { session: false }), blob);
 
 export default api;
-
-
-// list of HTTP status codes
-
-// 200 : OK
-// Standard response for successful HTTP requests. The actual response will depend on the request method subscribersDir
-
-// 201 : Created
-// The request has been fulfilled, resulting in the creation of a new resource
-
-// 202 : Accepted
-// The request has been accepted for processing, but the processing has not been completed
-
-// 204 : No Content
-// The server successfully processed the request and is not returning any content

@@ -1,11 +1,11 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm';
 import { Bucket } from "./Bucket";
 
 @Entity()
 export class Blob {
 
-    @PrimaryColumn('uuid')
-    uuid: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column('varchar', {
         length: 100,
@@ -22,9 +22,6 @@ export class Blob {
     })
     size: number;
 
-    @Column('varchar', {
-        length: 100,
-    })
-    bucket: Bucket;
-
+    @ManyToOne(type => Bucket, bucket => bucket.blob, { cascade: true })
+    bucket:  Bucket;
 }

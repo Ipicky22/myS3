@@ -1,20 +1,22 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
-import { User } from './User'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { User } from './User';
+import { Blob } from './Blob';
 
 @Entity()
 export class Bucket {
 
-    @PrimaryColumn('uuid')
-    uuid: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column('varchar', {
         length: 100,
     })
     name: string;
 
-    @Column('varchar', {
-        length: 100,
-    })
+    @ManyToOne(type => User, user => user.bucket, { cascade: true })
     user: User;
+
+    @OneToMany(type => Blob, blob => blob.bucket)
+    blob: Blob
 
 }
