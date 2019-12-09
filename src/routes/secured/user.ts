@@ -145,13 +145,13 @@ app.post('/mailpassword/:uuid', async (req: Request, res: Response) => {
 
 // **************** NOT ASKED **************** //
 
-// GET all users
+// **************** GET All Users **************** //
 app.get('/', async (req: Request, res: Response) => {
   const users: User[] | undefined = await getRepository(User).find();
   res.send(users).end();
 });
 
-// DELETE all users
+// **************** DELETE All Users **************** //
 app.delete('/', async (req: Request, res: Response) => {
   await getRepository(User).clear();
   res.send(`Users has been deleted.`).end();
