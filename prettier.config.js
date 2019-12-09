@@ -4,7 +4,7 @@ module.exports = {
     // specify the number of spaces per indentation-level.
     tabWidth: 4,
     // indent lines with tabs instead of spaces.
-    useTabs: false,
+    useTabs: true,
     // print semicolons at the ends of statements
     semi: false,
     // use single quotes instead of double quotes
