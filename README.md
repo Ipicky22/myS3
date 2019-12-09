@@ -24,10 +24,10 @@ Maxime Gouénard - Adrien Masson
 - [X] A bucket is describe with: id, name and belongs to a user
 - [X] Create routes which allows to create, edit and delete a bucket
 - [X] Create a route which allow to list all objects from a bucket
-- [ ] Create a route which allow to check if a bucket exist with a head method that return 200 or 400
+- [X] Create a route which allow to check if a bucket exist with a head method that return 200 or 400
 
 ### .step_04
-- [ ] An object or a blob is describe with: id, name, path, size and belongs to a bucket
+- [X] An object or a blob is describe with: id, name, path, size and belongs to a bucket
 - [ ] Create routes which allows to add and delete a blob using the package multer
 - [ ] Create a route which allows to retrieve a blob
 - [ ] Create a route which allows to duplicate a blob by adding .copy.$NB before the file extension
