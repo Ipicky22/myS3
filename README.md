@@ -109,13 +109,13 @@ module.exports = {
 
 - **USER ENDPOINT**
 
-| method       | endpoint                       | body                                                              |  auth |
-|--------------|--------------------------------|-------------------------------------------------------------------|-------|
-| **GET**      | `/api/users/`                  |                                                                   | token |
-| **GET**      | `/api/users/:uuid`             |                                                                   | token |
-| **PATCH**    | `/api/users/:uuid`             | body : { nickname, email }                                        | token |
-| **DELETE**   | `/api/users/:uuid`             |                                                                   | token |
-| **DELETE**   | `/api/users/`                  |                                                                   | token |
+| method         | endpoint                       | body                                                              |  auth |
+|----------------|--------------------------------|-------------------------------------------------------------------|-------|
+| **GET**        | `/api/users/:uuid`             |                                                                   | token |
+| **PATCH**      | `/api/users/:uuid`             | body : { nickname, email }                                        | token |
+| **DELETE**     | `/api/users/:uuid`             |                                                                   | token |
+| **GET ALL**    | `/api/users/`                  |                                                                   | token |
+| **DELETE ALL** | `/api/users/`                  |                                                                   | token |
 
 ---
 
@@ -123,12 +123,12 @@ module.exports = {
 
 | method         | endpoint                       | body                                                              |  auth |
 |----------------|------------------------------- |-------------------------------------------------------------------|-------|
-| **POST**       | `/api/users/:uuid/buckets/`    | body : { name }                                                   | token |
+| **POST**       | `/api/users/:uuid/buckets`     | body : { name }                                                   | token |
 | **GET**        | `/api/users/:uuid/buckets/:id` |                                                                   | token |
 | **PATCH**      | `/api/users/:uuid/buckets/:id` | body : { name }                                                   | token |
 | **DELETE**     | `/api/users/:uuid/buckets/:id` |                                                                   | token |
-| **GET ALL**    | `/api/buckets`                 |                                                                   | token |
-| **DELETE ALL** | `/api/buckets`                 |                                                                   | token |
+| **GET ALL**    | `/api/buckets/`                |                                                                   | token |
+| **DELETE ALL** | `/api/buckets/`                |                                                                   | token |
 
 ---
 
