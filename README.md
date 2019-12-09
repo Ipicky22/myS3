@@ -121,14 +121,15 @@ module.exports = {
 
 - **BUCKET ENDPOINT**
 
-| method       | endpoint                       | body                                                              |  auth |
-|--------------|------------------------------- |-------------------------------------------------------------------|-------|
-| **POST**     | `/api/buckets/create`          | body : { name, uuiUser }                                          | token |
-| **GET**      | `/api/buckets/`                |                                                                   | token |
-| **GET**      | `/api/buckets/:uuid`           |                                                                   | token |
-| **PATCH**    | `/api/buckets/:uuid`           | body : { name }                                                   | token |
-| **DELETE**   | `/api/buckets/:uuid`           |                                                                   | token |
-| **DELETE**   | `/api/buckets/`                |                                                                   | token |
+| method         | endpoint                       | body                                                              |  auth |
+|----------------|------------------------------- |-------------------------------------------------------------------|-------|
+| **POST**       | `/api/users/:uuid/buckets/     | body : { name }                                                   | token |
+| **GET**        | `/api/users/:uuid/buckets/:id` |                                                                   | token |
+| **PATCH**      | `/api/users/:uuid/buckets/:id` | body : { name }                                                   | token |
+| **DELETE**     | `/api/users/:uuid/buckets/:id` |                                                                   | token |
+
+| **GET ALL**    | `/api/buckets`                 |                                                                   | token |
+| **DELETE ALL** | `/api/buckets`                 |                                                                   | token |
 
 ---
 
