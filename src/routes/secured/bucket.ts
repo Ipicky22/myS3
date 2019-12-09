@@ -11,10 +11,10 @@ const secret = process.env.SUPERSECRET as string;
 app.post("/", async (req: Request, res: Response) => {
 
     try {
-      const { name } = req.body;
-      const { uuid } = req.user;
+        const { name } = req.body;
+        const { uuid } : any = req.user;
 
-      const dir = process.env.STORAGE + "/" + uuid + "/" + name
+        const dir = process.env.STORAGE + "/" + uuid + "/" + name
 
         if (!fs.existsSync(dir)) {
 
@@ -49,40 +49,40 @@ app.get('/:id', async (req: Request, res: Response) => {
 // PATCH update bucket
 app.patch('/:id', async (req: Request, res: Response) => {
 
-  const { name } = req.body;
-  const { uuid } = req.user;
+    const { name } = req.body;
+    const { uuid } : any = req.user;
 
-      const id: string = req.params.id;
-      const updateBucket: Bucket | undefined = req.body;
-      const bucket: Bucket | undefined = await getRepository(Bucket).findOne(id);
-      if (bucket && updateBucket) {
+    const id: string = req.params.id;
+    const updateBucket: Bucket | undefined = req.body;
+    const bucket: Bucket | undefined = await getRepository(Bucket).findOne(id);
+    if (bucket && updateBucket) {
 
-          const dir_old = process.env.STORAGE + "/" + uuid + "/" + bucket.name
-          const dir = process.env.STORAGE + "/" + uuid + "/" + name
+        const dir_old = process.env.STORAGE + "/" + uuid + "/" + bucket.name
+        const dir = process.env.STORAGE + "/" + uuid + "/" + name
 
-          if (!fs.existsSync(dir)) {
+        if (!fs.existsSync(dir)) {
 
-              getRepository(Bucket).merge(bucket, updateBucket);
-              await getRepository(Bucket).save(bucket);
+            getRepository(Bucket).merge(bucket, updateBucket);
+            await getRepository(Bucket).save(bucket);
 
-              fs.rename(dir_old, dir, function (err: Error) {
-                  if (err) throw err;
-                  fs.stat(dir, function (err: Error, stats: any) {
-                      if (err) throw err;
-                      console.log('stats: ' + JSON.stringify(stats));
-                  });
-              });
+            fs.rename(dir_old, dir, function (err) {
+                if (err) throw err;
+                fs.stat(dir, function (err, stats) {
+                    if (err) throw err;
+                    console.log('stats: ' + JSON.stringify(stats));
+                });
+            });
 
-          } else {
-              console.log("The bucket " + dir + " could not be created.");
-              res.send("The bucket " + dir + " could not be created.").end();
-          }
-          res.send(`Bucket n° ${id} has been updated.`).end();
+        } else {
+            console.log("The bucket " + dir + " could not be created.");
+            res.send("The bucket " + dir + " could not be created.").end();
+        }
+        res.send(`Bucket n° ${id} has been updated.`).end();
 
-      } else {
-          res.send(`Bucket n° ${id} was not found.`).end();
-      }
-  });
+    } else {
+        res.send(`Bucket n° ${id} was not found.`).end();
+    }
+});
 
 
 // DELETE bucket by id
