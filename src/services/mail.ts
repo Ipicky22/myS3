@@ -1,6 +1,9 @@
 import * as nodemailer from "nodemailer"
 
 export default class Mail {
+  to: string;
+  subject: string;
+  message: string;
 
   constructor (to: string, subject: string, message: string) {
     this.to = to;
@@ -8,7 +11,7 @@ export default class Mail {
     this.message = message;
   }
 
-  private sendMail() {
+  sendMail() {
 
     const mailOptions = {
         from : process.env.GMAIL_USER,

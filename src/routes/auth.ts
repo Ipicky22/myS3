@@ -25,13 +25,13 @@ app.post("/register", async (request, response) => {
 
     await getRepository(User).save(user);
     const payload = { id: user.uuid, nickname, email };
-    const token = jwt.sign(payload, process.env.SUPERSECRET);
+    const token = jwt.sign(payload, process.env.SUPERSECRET as string);
 
     const to: string = user.email;
     const subject: string = 'Welcome to myS3';
     const message: string = "Congratulations! You've successfully created a myS3 account";
 
-    const mail = new Mail(to, subject, message);
+    const mail : Mail = new Mail(to, subject, message);
     mail.sendMail();
 
     const dir = process.env.STORAGE + "/" + user.uuid
@@ -63,7 +63,7 @@ app.post("/login", async (request, response, next) => {
       }
 
       const payload = { nickname, email };
-      const token = jwt.sign(payload, process.env.SUPERSECRET);
+      const token = jwt.sign(payload, process.env.SUPERSECRET as string);
 
       response.status(200).json({ data: { user }, meta: { token } });
 
