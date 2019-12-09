@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm';
 import { Bucket } from "../../database/entity/Bucket";
 import jwt from "jsonwebtoken";
 import fs from 'fs';
+import rimraf from 'rimraf'
 
 const app = Router();
 
@@ -94,6 +95,9 @@ app.delete('/:id', async (req: Request, res: Response) => {
 
     if (bucket) {
         const dir = process.env.STORAGE + "/" + uuid + "/" + bucket.name;
+        rimraf(dir, () => {
+          console.log("the directory is deleted");
+        })
         await getRepository(Bucket).delete(id);
         res.status(200).send(`Bucket n° ${id} has been deleted.`).end();
     } else {
