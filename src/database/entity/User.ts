@@ -22,14 +22,12 @@ export class User {
     })
     password: string;
 
-    hashPassword() {
-        this.password = hashSync(this.password, 8);
+    private hashPassword() {
+      this.password = hashSync(this.password, 8);
     }
 
-    checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
-        console.log("pass",this.password)
-        console.log("unencryptedPassword",unencryptedPassword)
-        return compareSync(unencryptedPassword, this.password);
+    private checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
+      return compareSync(unencryptedPassword, this.password);
     }
 
 }

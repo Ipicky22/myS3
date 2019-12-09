@@ -15,7 +15,10 @@ Maxime Gouénard - Adrien Masson
   MYSQL_PORT=YOUR_MYSQL_PORT
   MYSQL_USER=YOUR__MYSQL_USER
   MYSQL_PASSWORD=YOUR_MYSQL_PASSWORD
-  MYSQL_DATABASE=YOUR__MYSQL_DATABASE
+  MYSQL_DATABASE=YOUR_MYSQL_DATABASE
+
+  GMAIL_USER=YOUR_FAKE_USER
+  GMAIL_PASSWORD=YOUR_FAKE_PASSWORD
 ```
 - Create **MYSQL** database called `YOUR_MYSQL_DATABASE`
 ```sql
@@ -77,3 +80,7 @@ module.exports = {
 ---
 - **Mail Register**
 https://nodemailer.com/about/
+
+| method       | endpoint                           | body                                                              |  auth |
+|--------------|------------------------------------|-------------------------------------------------------------------|-------|
+| **POST**     | `/api/users/resetpassword/:uuid`   |                                                                   | token |
