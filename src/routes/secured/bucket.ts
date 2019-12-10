@@ -21,10 +21,10 @@ app.head('/:id', async (req: Request, res: Response) => {
 app.post("/", async (req: Request, res: Response) => {
 
     try {
-      const { name } = req.body;
-      const { uuid } = req.user;
+        const { name } = req.body;
+        const { uuid }: any = req.user;
 
-      const dir = process.env.STORAGE + "/" + uuid + "/" + name
+        const dir = process.env.STORAGE + "/" + uuid + "/" + name
 
         if (!fs.existsSync(dir)) {
 
@@ -51,7 +51,7 @@ app.post("/", async (req: Request, res: Response) => {
 app.patch('/:id', async (req: Request, res: Response) => {
 
     const { name } = req.body;
-    const { uuid } = req.user;
+    const { uuid }: any = req.user;
 
     const id: string = req.params.id;
     const updateBucket: Bucket | undefined = req.body;
@@ -66,9 +66,9 @@ app.patch('/:id', async (req: Request, res: Response) => {
             getRepository(Bucket).merge(bucket, updateBucket);
             await getRepository(Bucket).save(bucket);
 
-            fs.rename(dir_old, dir, function (err: Error) {
+            fs.rename(dir_old, dir, function (err) {
                 if (err) throw err;
-                fs.stat(dir, function (err: Error, stats: any) {
+                fs.stat(dir, function (err, stats: any) {
                     if (err) throw err;
                     console.log('stats: ' + JSON.stringify(stats));
                 });
@@ -90,13 +90,13 @@ app.patch('/:id', async (req: Request, res: Response) => {
 app.delete('/:id', async (req: Request, res: Response) => {
 
     const id: string = req.params.id;
-    const { uuid } = req.user;
+    const { uuid }: any = req.user;
     const bucket: Bucket | undefined = await getRepository(Bucket).findOne(id);
 
     if (bucket) {
         const dir = process.env.STORAGE + "/" + uuid + "/" + bucket.name;
         rimraf(dir, () => {
-          console.log("the directory is deleted");
+            console.log("the directory is deleted");
         })
         await getRepository(Bucket).delete(id);
         res.status(200).send(`Bucket n° ${id} has been deleted.`).end();
@@ -109,12 +109,12 @@ app.delete('/:id', async (req: Request, res: Response) => {
 // **************** GET All return the list in a user's bucket **************** //
 app.get('/', async (req: Request, res: Response) => {
 
-    const { uuid } = req.user;
+    const { uuid }: any = req.user;
     const buckets: Bucket[] | undefined = await getRepository(Bucket).find({ where: { userUuid: uuid } });
-    if (buckets){
-      res.status(200).send(buckets).end();
-    }else {
-      res.status(400).send(`User has no bucket. `).end();
+    if (buckets) {
+        res.status(200).send(buckets).end();
+    } else {
+        res.status(400).send(`User has no bucket. `).end();
     }
 });
 
