@@ -7,7 +7,7 @@ Maxime Gouénard - Adrien Masson
 ### .step_01
 - [X] Bootstrap an API server using express and typeORM with Typescript + Babel
 - [X] You HAVE TO use snakecase and lowercase table names
-- [ ] Setup tests with **Jest**
+- [X] Setup tests with **Jest**
 - [ ] Setup docker container
 
 ### .step_02
@@ -24,10 +24,10 @@ Maxime Gouénard - Adrien Masson
 - [X] A bucket is describe with: id, name and belongs to a user
 - [X] Create routes which allows to create, edit and delete a bucket
 - [X] Create a route which allow to list all objects from a bucket
-- [ ] Create a route which allow to check if a bucket exist with a head method that return 200 or 400
+- [X] Create a route which allow to check if a bucket exist with a head method that return 200 or 400
 
 ### .step_04
-- [ ] An object or a blob is describe with: id, name, path, size and belongs to a bucket
+- [X] An object or a blob is describe with: id, name, path, size and belongs to a bucket
 - [ ] Create routes which allows to add and delete a blob using the package multer
 - [ ] Create a route which allows to retrieve a blob
 - [ ] Create a route which allows to duplicate a blob by adding .copy.$NB before the file extension
@@ -114,8 +114,6 @@ module.exports = {
 | **GET**        | `/api/users/:uuid`             |                                                                   | token |
 | **PATCH**      | `/api/users/:uuid`             | body : { nickname, email }                                        | token |
 | **DELETE**     | `/api/users/:uuid`             |                                                                   | token |
-| **GET ALL**    | `/api/users/`                  |                                                                   | token |
-| **DELETE ALL** | `/api/users/`                  |                                                                   | token |
 
 ---
 
@@ -127,8 +125,6 @@ module.exports = {
 | **GET**        | `/api/users/:uuid/buckets/:id` |                                                                   | token |
 | **PATCH**      | `/api/users/:uuid/buckets/:id` | body : { name }                                                   | token |
 | **DELETE**     | `/api/users/:uuid/buckets/:id` |                                                                   | token |
-| **GET ALL**    | `/api/buckets/`                |                                                                   | token |
-| **DELETE ALL** | `/api/buckets/`                |                                                                   | token |
 
 ---
 
@@ -137,4 +133,4 @@ https://nodemailer.com/about/
 
 | method       | endpoint                           | body                                                              |  auth |
 |--------------|------------------------------------|-------------------------------------------------------------------|-------|
-| **POST**     | `/api/users/resetpassword/:uuid`   |                                                                   | token |
+| **POST**     | `/api/users/mailpassword/:uuid`    |                                                                   | token |
