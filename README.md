@@ -7,7 +7,7 @@ Maxime Gouénard - Adrien Masson
 ### .step_01
 - [X] Bootstrap an API server using express and typeORM with Typescript + Babel
 - [X] You HAVE TO use snakecase and lowercase table names
-- [ ] Setup tests with **Jest**
+- [X] Setup tests with **Jest**
 - [ ] Setup docker container
 
 ### .step_02
