@@ -27,14 +27,14 @@ const upload = multer({ storage })
 app.post("/", upload.single("blob"), async (req: Request, res: Response) => {
   try {
     const { filename, path, size } = req.file;
-    const { id } = req.params;
+    const { bucket_id } = req.params;
 
     const blob : Blob = new Blob();
 
     blob.name = filename;
     blob.path = path;
     blob.size = size;
-    blob.bucket = id;
+    blob.bucket = bucket_id;
 
     await getRepository(Blob).save(blob);
 
@@ -89,9 +89,10 @@ app.get('/duplicate/:blob_id', async(req: Request, res: Response ) => {
 
   try {
 
-     const { uuid, id, blob_id } =  req.params;
+     const { uuid, bucket_id, blob_id } =  req.params;
+     console.log(req.params)
 
-     const bucket: Bucket | undefined = await getRepository(Bucket).findOne(id);
+     const bucket: Bucket | undefined = await getRepository(Bucket).findOne(bucket_id);
      const blob: Blob | undefined = await getRepository(Blob).findOne(blob_id);
 
      if (blob) {

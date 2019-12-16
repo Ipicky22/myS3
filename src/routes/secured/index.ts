@@ -8,6 +8,6 @@ const api = Router();
 
 api.use("/users", user);
 api.use("/users/:uuid/buckets", passport.authenticate("jwt", { session : false }), bucket);
-api.use("/users/:uuid/buckets/:id/blobs",passport.authenticate("jwt", { session: false }), blob);
+api.use("/users/:uuid/buckets/:bucket_id/blobs",passport.authenticate("jwt", { session: false }), blob);
 
 export default api;
