@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm';
-import { Bucket } from "./Bucket";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import Bucket from "./Bucket";
 
 @Entity()
-export class Blob {
+export default class Blob {
 
     @PrimaryGeneratedColumn()
     id: number;

@@ -1,7 +1,6 @@
 import { Router, Request, Response } from "express";
 import { getRepository } from 'typeorm';
-import { Bucket } from "../../database/entity/Bucket";
-import jwt from "jsonwebtoken";
+import Bucket from "../../database/entity/Bucket";
 import fs from 'fs';
 import rimraf from 'rimraf'
 
@@ -33,7 +32,7 @@ app.post("/", async (req: Request, res: Response) => {
             bucket.user = uuid;
             await getRepository(Bucket).save(bucket);
 
-            res.status(201).json({ data: { bucket } });
+            res.status(201).json({ data: { Bucket } });
             fs.mkdirSync(dir);
 
         } else {
@@ -117,6 +116,8 @@ app.get('/', async (req: Request, res: Response) => {
         res.status(400).send(`User has no bucket. `).end();
     }
 });
+
+
 
 // **************** NOT ASKED **************** //
 

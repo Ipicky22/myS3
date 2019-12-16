@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getManager, getRepository } from 'typeorm';
-import { User } from "../database/entity/User";
+import User from "../database/entity/User";
 import Mail from "../services/mail";
 import { hashSync } from "bcryptjs";
 import jwt from "jsonwebtoken";
