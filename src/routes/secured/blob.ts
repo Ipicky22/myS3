@@ -99,7 +99,7 @@ app.get('/duplicate/:blob_id', async(req: Request, res: Response ) => {
        const dir = blob.path.split('.');
        const regex = '%'+dir[0]+'%';
        const nbCopy: number = await getRepository(Blob).count({ where: { path: Like(regex) } });
-       const copyField = dir[0] + '.copy.' + (nbCopy+1) + '.' + dir[1];
+       const copyField = dir[0] + '.copy.' + nbCopy + '.' + dir[1];
 
        const blobDuplicate: Blob | undefined = new Blob();
        blobDuplicate.name = blob.name;
