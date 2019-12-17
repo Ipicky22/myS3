@@ -120,7 +120,7 @@ module.exports = {
 - **BUCKET ENDPOINT**
 
 | method         | endpoint                       | body                                                              |  auth |
-|----------------|------------------------------- |-------------------------------------------------------------------|-------|
+|----------------|--------------------------------|-------------------------------------------------------------------|-------|
 | **POST**       | `/api/users/:uuid/buckets`     | body : { name }                                                   | token |
 | **GET**        | `/api/users/:uuid/buckets/:id` |                                                                   | token |
 | **PATCH**      | `/api/users/:uuid/buckets/:id` | body : { name }                                                   | token |
@@ -128,9 +128,20 @@ module.exports = {
 
 ---
 
+- **BLOB ENDPOINT**
+
+| method         | endpoint                                                        | body                             |  auth |
+|----------------|-----------------------------------------------------------------|----------------------------------|-------|
+| **POST**       | `/api/users/:uuid/buckets/:bucket_id/blobs/`                    | body : { blob }                  | token |
+| **DELETE**     | `/api/users/:uuid/buckets/:bucket_id/blobs/:blob_id`            |                                  | token |
+| **GET**        | `/api/users/:uuid/buckets/:bucket_id/blobs/metadata/:blob_id`   |                                  | token |
+| **GET**        | `/api/users/:uuid/buckets/:bucket_id/blobs/duplicate/:blob_id`  |                                  | token |
+
+---
+
 - **Mail Register**
 https://nodemailer.com/about/
 
-| method       | endpoint                           | body                                                              |  auth |
-|--------------|------------------------------------|-------------------------------------------------------------------|-------|
-| **POST**     | `/api/users/mailpassword/:uuid`    |                                                                   | token |
+| method       | endpoint                           | body                                                             |  auth|
+|--------------|------------------------------------|------------------------------------------------------------------|-------|
+| **POST**     | `/api/users/mailpassword/:uuid`    |                                                                  | token |

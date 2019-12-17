@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 
     const { uuid, id } = JSON.parse(JSON.stringify(req)).params;
     const bucket : Bucket | undefined = await getRepository(Bucket).findOne(id);
-    
+
     if ( bucket) {
     await cb(null, process.env.STORAGE + "/" + uuid + "/" + bucket.name)
     } else {
@@ -57,10 +57,10 @@ app.post("/", upload.single("blob"), async (req: Request, res: Response) => {
 });
 
 // **************** DELETE Blob **************** //
-app.delete('/:id', async (req: Request, res: Response) => {
+app.delete('/:blob_id', async (req: Request, res: Response) => {
 
-  const id: any = req.params.id ;
-  const blob: Blob | undefined = await getRepository(Blob).findOne(id);
+  const blob_id: any = req.params.id ;
+  const blob: Blob | undefined = await getRepository(Blob).findOne(blob_id);
 
   if (blob) {
     try {
@@ -69,10 +69,10 @@ app.delete('/:id', async (req: Request, res: Response) => {
     } catch (err) {
       console.log(err)
     }
-    await getRepository(Blob).delete(id);
-    res.status(200).send(`Blob n° ${id} has been deleted.`).end();
+    await getRepository(Blob).delete(blob_id);
+    res.status(200).send(`Blob n° ${blob_id} has been deleted.`).end();
   } else {
-    res.status(404).send(`Blob n° ${id} was not found.`).end();
+    res.status(404).send(`Blob n° ${blob_id} was not found.`).end();
   }
 
 });
@@ -116,7 +116,7 @@ app.get('/duplicate/:blob_id', async (req: Request, res: Response) => {
       blobDuplicate.path = copyField;
       blobDuplicate.size = blob.size;
       blobDuplicate.bucket = bucket;
-      
+
       await getRepository(Blob).save(blobDuplicate);
 
       createReadStream(blob.path).pipe(createWriteStream(copyField));
