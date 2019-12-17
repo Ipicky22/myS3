@@ -1,11 +1,18 @@
-import app from '../src/app';
-import supertest from 'supertest'
+import supertest from 'supertest';
+import express from 'express';
 
-const server = supertest(app);
+const server = express();
+const request = supertest(server);
+
+describe('Sample Test', () => {
+  it('should test that true === true', () => {
+    expect(true).toBe(true)
+  })
+});
 
 describe('Get index', () => {
-  it('simple get home', done => {
-    const res: Response = server.get('/');
+  it('Simple check ReadMe', done => {
+    const res: Response = request.get('/');
     expect(res.status).toEqual(200);
     done();
   });
