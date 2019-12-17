@@ -4,7 +4,6 @@ import Blob from "../../database/entity/Blob";
 import Bucket from "../../database/entity/Bucket"
 import multer from "multer";
 import { createReadStream, createWriteStream, unlinkSync } from "fs";
-import fs from 'fs';
 
 const app = Router({
   mergeParams: true
@@ -65,7 +64,7 @@ app.delete('/:id', async (req: Request, res: Response) => {
 
   if (blob) {
     try {
-      fs.unlinkSync(blob.path);
+      unlinkSync(blob.path);
       console.log(`successfully deleted ${blob.path}`);
     } catch (err) {
       console.log(err)
