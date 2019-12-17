@@ -2,7 +2,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { getRepository } from 'typeorm';
-import { User } from "../../database/entity/User";
+import  User from "../../database/entity/User";
 
 require('dotenv').config();
 

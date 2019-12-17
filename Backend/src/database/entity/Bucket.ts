@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
-import { User } from './User';
-import { Blob } from './Blob';
+import User from './User';
+import Blob from './Blob';
 
 @Entity()
-export class Bucket {
+export default class Bucket {
 
     @PrimaryGeneratedColumn()
     id: number;

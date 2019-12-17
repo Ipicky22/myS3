@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import { getRepository } from 'typeorm';
-import { User } from "../../database/entity/User";
+import User from "../../database/entity/User";
 import Mail from "../../services/mail";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
