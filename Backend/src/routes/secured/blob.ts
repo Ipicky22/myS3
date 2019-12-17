@@ -93,7 +93,7 @@ app.get('/metadata/:blob_id', async (req: Request, res: Response) => {
 
 // **************** DUPLICATE Blob **************** //
 
-app.get('/duplicate/:blob_id', async (req: Request, res: Response) => {
+app.post('/duplicate/:blob_id', async (req: Request, res: Response) => {
 
   try {
 

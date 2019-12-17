@@ -135,7 +135,7 @@ module.exports = {
 | **POST**       | `/api/users/:uuid/buckets/:bucket_id/blobs/`                    | body : { blob }                  | token |
 | **DELETE**     | `/api/users/:uuid/buckets/:bucket_id/blobs/:blob_id`            |                                  | token |
 | **GET**        | `/api/users/:uuid/buckets/:bucket_id/blobs/metadata/:blob_id`   |                                  | token |
-| **GET**        | `/api/users/:uuid/buckets/:bucket_id/blobs/duplicate/:blob_id`  |                                  | token |
+| **POST**        | `/api/users/:uuid/buckets/:bucket_id/blobs/duplicate/:blob_id`  |                                  | token |
 
 ---
 
