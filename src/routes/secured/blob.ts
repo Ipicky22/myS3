@@ -11,11 +11,11 @@ const app = Router({
 
 const storage = multer.diskStorage({
 
-  destination: async (req: Request, file: Response, cb: any, destination: String) => {
+  destination: async (req, file , cb) => {
 
-    const { uuid, id } = req.params;
+    const { uuid, id } = JSON.parse(JSON.stringify(req)).params;
     const bucket : Bucket | undefined = await getRepository(Bucket).findOne(id);
-
+    
     if ( bucket) {
     await cb(null, process.env.STORAGE + "/" + uuid + "/" + bucket.name)
     } else {
