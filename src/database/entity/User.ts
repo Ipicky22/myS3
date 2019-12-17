@@ -1,9 +1,9 @@
 import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
 import { hashSync, compareSync } from "bcryptjs";
-import { Bucket } from './Bucket'
+import Bucket from './Bucket'
 
 @Entity()
-export class User {
+export default class User {
 
     @PrimaryColumn('uuid')
     uuid: string;
