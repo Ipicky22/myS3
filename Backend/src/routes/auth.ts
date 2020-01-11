@@ -1,11 +1,9 @@
 import { Router } from "express";
-import { getManager, getRepository } from 'typeorm';
+import {getRepository } from 'typeorm';
 import User from "../database/entity/User";
 import Mail from "../services/mail";
-import { hashSync } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import passport from "passport";
-import nodemailer from "nodemailer";
 import fs from "fs";
 
 const uuid = require('uuid');
@@ -31,7 +29,7 @@ app.post("/register", async (request, response) => {
     const subject: string = 'Welcome to myS3';
     const message: string = "Congratulations! You've successfully created a myS3 account";
 
-    const mail : Mail = new Mail(to, subject, message);
+    const mail: Mail = new Mail(to, subject, message);
     mail.sendMail();
 
     const dir = process.env.STORAGE + "/" + user.uuid
