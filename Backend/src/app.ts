@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 app.get("/", (request: Request, response: Response) => {
   const file: String = fs.readFileSync('./README.md', 'utf8');
-  response.send(marked(file.toString()));
+  response.status(200).send(marked(file.toString()));
 })
 
 app.use("/api", api);
