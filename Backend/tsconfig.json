@@ -23,9 +23,9 @@
         "types.d.ts"
     ],
     "exclude": [
-        ".eslintrc.js",
-        ".jestrc.js",
-        "babel.config.js",
+        "Backend/.eslintrc.js",
+        "Backend/.jestrc.js",
+        "Backend/babel.config.js",
         "prettier.config.js"
     ]
 }

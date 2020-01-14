@@ -1,8 +1,3 @@
-# myS3
+Project myS3DATA
 
-"husky": {
-    "hooks": {
-      "pre-commit": "prettier --write \"src/*.ts\" \"src/**/*.ts*\"",
-      "pre-push": "lint && test"
-    }
-  },
+Author : Gouénard Maxime, Masson Adrien

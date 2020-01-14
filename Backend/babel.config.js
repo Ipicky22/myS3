@@ -4,7 +4,8 @@ module.exports = api => {
   const presets = ['@babel/preset-env', '@babel/preset-typescript'];
   const plugins = [
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    ["@babel/plugin-proposal-class-properties"]
+    ["@babel/plugin-proposal-class-properties"],
+    ["@babel/plugin-transform-runtime"]
   ];
 
   return {

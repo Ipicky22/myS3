@@ -1,0 +1,5 @@
+{
+    "watch": ["myS3"],
+    "ext": "ts",
+    "exec": "babel-node --extensions \".ts\" src/server"
+}
